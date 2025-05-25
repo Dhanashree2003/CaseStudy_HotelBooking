@@ -1,6 +1,7 @@
 package com.hexaware.cozyHeaven.hotelBooking.entity;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,8 +27,8 @@ public class Payment {
     @JoinColumn(name = "BookingID")
     private Bookings booking; // Mapping to Booking entity
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date paymentDate;
+   
+    private LocalDate paymentDate;
 
     private double amount;
 

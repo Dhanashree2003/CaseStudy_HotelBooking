@@ -1,6 +1,6 @@
 package com.hexaware.cozyHeaven.hotelBooking.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,8 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "bookings")
@@ -29,11 +27,11 @@ public class Bookings {
     @JoinColumn(name = "RoomID")
     private Rooms room; // Mapping to Room entity
 
-    @Temporal(TemporalType.DATE)
-    private Date checkInDate;
+    
+    private LocalDate checkInDate;
 
-    @Temporal(TemporalType.DATE)
-    private Date checkOutDate;
+   
+    private LocalDate checkOutDate;
 
     private int noOfAdults;
 

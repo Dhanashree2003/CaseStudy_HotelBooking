@@ -1,6 +1,7 @@
 package com.hexaware.cozyHeaven.hotelBooking.entity;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "reviews")
@@ -31,8 +30,8 @@ public class Review {
 
     private String comment;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date reviewDate;
+ 
+    private LocalDate reviewDate;
 
     // Getters and Setters
 }
