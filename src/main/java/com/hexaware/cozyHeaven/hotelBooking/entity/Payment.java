@@ -3,6 +3,9 @@ package com.hexaware.cozyHeaven.hotelBooking.entity;
 
 import java.time.LocalDate;
 
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.PaymentMethod;
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.PaymentStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,12 +15,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import lombok.Data;
 
 
 @Entity
 @Table(name = "payments")
+@Data
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +28,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "BookingID")
-    private Bookings booking; // Mapping to Booking entity
+    private Booking booking; // Mapping to Booking entity
 
    
     private LocalDate paymentDate;
@@ -33,10 +36,10 @@ public class Payment {
     private double amount;
 
     @Enumerated(EnumType.STRING)
-    private PaymentDetails.PaymentMethod paymentMethod;
+    private PaymentMethod paymentMethod;
 
     @Enumerated(EnumType.STRING)
-    private PaymentDetails.PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 
     // Getters and Setters
 }

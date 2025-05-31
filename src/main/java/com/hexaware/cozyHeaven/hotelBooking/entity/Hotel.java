@@ -11,9 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Entity
 @Table(name = "hotels")
+@Data
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +34,6 @@ public class Hotel {
     private User owner; // Mapping to User entity
 
     @OneToMany(mappedBy = "hotel")
-    private List<Rooms> rooms; // One hotel can have multiple rooms
+    private List<Room> room; // One hotel can have multiple rooms
 
-    // Getters and Setters
 }

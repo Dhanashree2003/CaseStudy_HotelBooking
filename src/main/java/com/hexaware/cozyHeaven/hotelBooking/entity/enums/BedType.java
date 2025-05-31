@@ -1,4 +1,4 @@
-package com.hexaware.cozyHeaven.hotelBooking.entity;
+package com.hexaware.cozyHeaven.hotelBooking.entity.enums;
 
 
 public enum BedType {

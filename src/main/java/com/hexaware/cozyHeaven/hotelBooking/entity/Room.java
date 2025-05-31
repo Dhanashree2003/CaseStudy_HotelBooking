@@ -1,5 +1,8 @@
 package com.hexaware.cozyHeaven.hotelBooking.entity;
 
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.BedType;
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Status;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,10 +14,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 @Entity
 @Table(name = "rooms")
-public class Rooms {
+@Data
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long roomID;

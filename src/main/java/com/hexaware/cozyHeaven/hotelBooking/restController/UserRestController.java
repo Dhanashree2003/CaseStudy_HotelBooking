@@ -19,32 +19,32 @@ import com.hexaware.cozyHeaven.hotelBooking.service.IUserService;
 @RequestMapping("/api/users")
 public class UserRestController {
 
-    @Autowired
-    private IUserService userService;
-
-    @GetMapping("/getall")
-    public List<User> getAll() {
-        return userService.getAllUsers();
-    }
-
-    @GetMapping("/getbyid/{userId}")
-    public User getById(@PathVariable Long userId) {
-        return userService.getByUserId(userId);
-    }
-
-    @PostMapping("/add")
-    public User addUser (@RequestBody User user) {
-        return userService.addUser (user);
-    }
-
-    @PutMapping("/update")
-    public User updateUser (@RequestBody User user) {
-        return userService.updateUser (user);
-    }
-
-    @DeleteMapping("/delete/{userId}")
-    public String deleteUser (@PathVariable Long userId) {
-        return userService.deleteByUserId(userId);
-    }
+//    @Autowired
+//    private IUserService userService;
+//
+//    @GetMapping("/getall")
+//    public List<User> getAll() {
+//        return userService.getAllUsers();
+//    }
+//
+//    @GetMapping("/getbyid/{userId}")
+//    public User getById(@PathVariable Long userId) {
+//        return userService.getByUserId(userId);
+//    }
+//
+//    @PostMapping("/add")
+//    public User addUser (@RequestBody User user) {
+//        return userService.addUser (user);
+//    }
+//
+//    @PutMapping("/update")
+//    public User updateUser (@RequestBody User user) {
+//        return userService.updateUser (user);
+//    }
+//
+//    @DeleteMapping("/delete/{userId}")
+//    public String deleteUser (@PathVariable Long userId) {
+//        return userService.deleteByUserId(userId);
+//    }
 }
 

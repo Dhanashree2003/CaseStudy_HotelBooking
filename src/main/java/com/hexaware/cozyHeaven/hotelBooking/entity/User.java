@@ -1,5 +1,8 @@
 package com.hexaware.cozyHeaven.hotelBooking.entity;
 
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Gender;
+import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Role;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,9 +12,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +31,9 @@ public class User {
 
     @NotBlank
     private String password;
-
-    private String role;
+    
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -37,5 +43,6 @@ public class User {
 
     private String address;
 
-    // Getters and Setters
+	
+  
 }
