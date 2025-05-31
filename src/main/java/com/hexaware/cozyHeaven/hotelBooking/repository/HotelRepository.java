@@ -7,4 +7,6 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
     List<Hotel> findByLocation(String location);
+    
+    List<Hotel> findByOwner_UserID(Long ownerId);
 }

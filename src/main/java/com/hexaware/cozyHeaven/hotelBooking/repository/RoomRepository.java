@@ -15,5 +15,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 	List<Room> findAvailableRoomsByHotelIdAndDate(@Param("hotelId") Long hotelId,
 	                                               @Param("startDate") LocalDate startDate,
 	                                               @Param("endDate") LocalDate endDate);
+	
+	List<Room> findByHotel_Owner_UserID(Long ownerId);
 
 }

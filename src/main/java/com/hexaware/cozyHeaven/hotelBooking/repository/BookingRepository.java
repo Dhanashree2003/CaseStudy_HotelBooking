@@ -11,5 +11,8 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 	@Query("SELECT b FROM Booking b WHERE b.user.userID = :userId")
 	List<Booking> findBookingsByUserId(@Param("userId") Long userId);
+	
+	List<Booking> findByRoom_Hotel_Owner_UserID(Long ownerId);
+    // This list bookings for rooms where the room's hotel's owner matches ownerId
 
 }
