@@ -70,7 +70,7 @@ public class OwnerServiceImpl implements IOwnerService {
 
     @Override
     public RoomDTO addRoom(RoomDTO roomDTO) {
-        Room room = MapperUtil.toRoomEntity(roomDTO, hotelRepo);
+        Room room = MapperUtil.toRoomEntity(roomDTO);
         Room savedRoom = roomRepo.save(room);
         return MapperUtil.toRoomDTO(savedRoom);
     }
@@ -80,7 +80,7 @@ public class OwnerServiceImpl implements IOwnerService {
         Room existingRoom = roomRepo.findById(roomId)
                 .orElseThrow(() -> new RuntimeException("Room not found with id: " + roomId));
 
-        Room updatedRoom = MapperUtil.toRoomEntity(roomDTO, hotelRepo);
+        Room updatedRoom = MapperUtil.toRoomEntity(roomDTO);
         updatedRoom.setRoomID(roomId);
         updatedRoom.setHotel(existingRoom.getHotel());
 

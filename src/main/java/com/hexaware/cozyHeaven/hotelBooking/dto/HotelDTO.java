@@ -14,6 +14,6 @@ public class HotelDTO {
     private String location;
     private String amenities;
     private Long ownerID; // refers to User
-    private List<Room> room;
+    //private List<Room> room;
 
 }

@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/owner")
-public class OwnerController {
+public class OwnerRestController {
 
     @Autowired
     private IOwnerService ownerService;

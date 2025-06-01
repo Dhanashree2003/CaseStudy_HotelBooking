@@ -24,8 +24,8 @@ public class MapperUtil {
         dto.setHotelID(hotel.getHotelID());
         dto.setHotelName(hotel.getHotelName());
         dto.setLocation(hotel.getLocation());
-        dto.setOwnerID(hotel.getOwner().getUserID());
         dto.setAmenities(hotel.getAmenities());
+        dto.setOwnerID(hotel.getOwner().getUserID());
         return dto;
     }
 
@@ -75,7 +75,7 @@ public class MapperUtil {
     }
     
     
-    public static Room toRoomEntity(RoomDTO dto, HotelRepository hotelRepo) {
+    public static Room toRoomEntity(RoomDTO dto) {
         Room room = new Room();
         room.setRoomID(dto.getRoomID());
         room.setRoomSize(dto.getRoomSize());
@@ -85,10 +85,13 @@ public class MapperUtil {
         room.setAc(dto.isAc());
         room.setRoomStatus(dto.getRoomStatus());
 
-        hotelRepo.findById(dto.getHotelID()).ifPresent(room::setHotel);
+        Hotel hotel = new Hotel();
+        hotel.setHotelID(dto.getHotelID());
+        room.setHotel(hotel);
 
         return room;
     }
+
 
     public static PaymentDTO toPaymentDTO(Payment payment) {
         PaymentDTO dto = new PaymentDTO();
@@ -112,6 +115,18 @@ public class MapperUtil {
         dto.setAddress(user.getAddress());
         return dto;
     }
+    public static User toUserEntity(UserDTO dto) {
+        User user = new User();
+        user.setUserID(dto.getUserID());
+        user.setFullName(dto.getFullName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
+        user.setGender(dto.getGender());
+        user.setContactNumber(dto.getContactNumber());
+        user.setAddress(dto.getAddress());
+        return user;
+    }
 
     
     public static ReviewDTO toReviewDTO(Review review) {
@@ -124,6 +139,20 @@ public class MapperUtil {
         dto.setReviewDate(review.getReviewDate());
         return dto;
     }
+    
+    public static Payment toPaymentEntity(PaymentDTO dto) {
+        Payment payment = new Payment();
+        Booking booking = new Booking();
+        booking.setBookingID(dto.getBookingID());
+        payment.setBooking(booking);
+        payment.setPaymentID(dto.getPaymentID());
+        payment.setPaymentDate(dto.getPaymentDate());
+        payment.setAmount(dto.getAmount());
+        payment.setPaymentMethod(dto.getPaymentMethod());
+        payment.setPaymentStatus(dto.getPaymentStatus());
+        return payment;
+    }
+
 
 
     // List converters using traditional for-loops

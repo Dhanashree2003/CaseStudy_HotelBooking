@@ -15,10 +15,10 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Override
-    public User addUser (User user) {
-        return userRepository.save(user);
-    }
+//    @Override
+//    public User addUser (User user) {
+//        return userRepository.save(user);
+//    }
 
     @Override
     public User updateUser (User user) {

@@ -32,10 +32,10 @@ public class UserRestController {
         return userService.getByUserId(userId);
     }
 
-    @PostMapping("/add")
-    public User addUser (@RequestBody User user) {
-        return userService.addUser (user);
-    }
+//    @PostMapping("/add")
+//    public User addUser (@RequestBody User user) {
+//        return userService.addUser (user);
+//    }
 
     @PutMapping("/update")
     public User updateUser (@RequestBody User user) {

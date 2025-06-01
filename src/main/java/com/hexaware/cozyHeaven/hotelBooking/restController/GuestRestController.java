@@ -14,7 +14,7 @@ import com.hexaware.cozyHeaven.hotelBooking.service.IGuestService;
 
 @RestController
 @RequestMapping("/api/guest")
-public class GuestController {
+public class GuestRestController {
 
 	@Autowired
 	private IGuestService guestService;
