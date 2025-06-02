@@ -41,5 +41,4 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
-    // Getters and Setters
 }

@@ -16,6 +16,9 @@ import com.hexaware.cozyHeaven.hotelBooking.repository.HotelRepository;
 import com.hexaware.cozyHeaven.hotelBooking.repository.UserRepository;
 import com.hexaware.cozyHeaven.hotelBooking.util.MapperUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AdminServiceImpl implements IAdminService {
 
@@ -25,20 +28,11 @@ public class AdminServiceImpl implements IAdminService {
     @Autowired
     private HotelRepository hotelRepo;
 
-    public User addUser (User user) {
-        return userRepo.save(user);
-    }
-
-//    @Override
-//    public UserDTO addUser(UserDTO userDto) {
-//        User user = MapperUtil.toUserEntity(userDto);
-//        User saved = userRepo.save(user);
-//        return MapperUtil.toUserDTO(saved);
-//    }
 
     @Override
     public void deleteUser(Long userId) {
         if (!userRepo.existsById(userId)) {
+        	log.warn("User not found with ID: {}", userId);
             throw new ResourceNotFoundException("User not found with ID: " + userId);
         }
         userRepo.deleteById(userId);

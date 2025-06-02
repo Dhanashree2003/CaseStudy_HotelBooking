@@ -10,7 +10,7 @@ public interface IAdminService {
 	
     // User and Owner
 	
-	User addUser (User user);
+	
   // UserDTO addUser(UserDTO userDto);
    void deleteUser(Long userID);
    List<UserDTO> getAllUsers();

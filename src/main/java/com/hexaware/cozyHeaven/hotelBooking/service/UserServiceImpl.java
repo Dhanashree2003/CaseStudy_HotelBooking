@@ -30,14 +30,14 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findById(userId).orElse(null);
     }
 
-    @Override
-    public String deleteByUserId(Long userId) {
-        userRepository.deleteById(userId);
-        return "User  deleted successfully: " + userId;
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+//    @Override
+//    public String deleteByUserId(Long userId) {
+//        userRepository.deleteById(userId);
+//        return "User  deleted successfully: " + userId;
+//    }
+//
+//    @Override
+//    public List<User> getAllUsers() {
+//        return userRepository.findAll();
+//    }
 }

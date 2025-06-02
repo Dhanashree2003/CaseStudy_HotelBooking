@@ -11,7 +11,7 @@ public interface IGuestService {
 
     List<HotelDTO> searchHotels(String location);
 
-    List<RoomDTO> findAvailableRooms(Long hotelId, LocalDate checkIn, LocalDate checkOut);
+    // List<RoomDTO> findAvailableRooms(Long hotelId, LocalDate checkIn, LocalDate checkOut);
 
     double calculateTotalFare(RoomDTO room, int numAdults, int numChildren, List<Integer> childrenAges);
 

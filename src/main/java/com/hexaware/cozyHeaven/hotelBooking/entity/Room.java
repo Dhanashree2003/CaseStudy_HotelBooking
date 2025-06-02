@@ -28,7 +28,7 @@ public class Room {
     @JoinColumn(name = "HotelID")
     private Hotel hotel; // Mapping to Hotel entity
 
-    @NotBlank
+   
     private String roomSize;
 
     @Enumerated(EnumType.STRING)
@@ -45,5 +45,5 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Status roomStatus;
 
-    // Getters and Setters
+    
 }

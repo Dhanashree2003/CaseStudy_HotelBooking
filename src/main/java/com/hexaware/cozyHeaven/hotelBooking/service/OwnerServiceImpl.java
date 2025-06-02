@@ -75,18 +75,18 @@ public class OwnerServiceImpl implements IOwnerService {
         return MapperUtil.toRoomDTO(savedRoom);
     }
 
-    @Override
-    public RoomDTO updateRoom(Long roomId, RoomDTO roomDTO) {
-        Room existingRoom = roomRepo.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("Room not found with id: " + roomId));
-
-        Room updatedRoom = MapperUtil.toRoomEntity(roomDTO);
-        updatedRoom.setRoomID(roomId);
-        updatedRoom.setHotel(existingRoom.getHotel());
-
-        Room savedRoom = roomRepo.save(updatedRoom);
-        return MapperUtil.toRoomDTO(savedRoom);
-    }
+//    @Override
+//    public RoomDTO updateRoom(Long roomId, RoomDTO roomDTO) {
+//        Room existingRoom = roomRepo.findById(roomId)
+//                .orElseThrow(() -> new RuntimeException("Room not found with id: " + roomId));
+//
+//        Room updatedRoom = MapperUtil.toRoomEntity(roomDTO);
+//        updatedRoom.setRoomID(roomId);
+//        updatedRoom.setHotel(existingRoom.getHotel());
+//
+//        Room savedRoom = roomRepo.save(updatedRoom);
+//        return MapperUtil.toRoomDTO(savedRoom);
+//    }
 
     @Override
     public void deleteRoom(Long roomId) {

@@ -22,7 +22,7 @@ public interface IOwnerService {
 
     RoomDTO addRoom(RoomDTO roomDTO);
 
-    RoomDTO updateRoom(Long roomId, RoomDTO roomDTO);
+    //RoomDTO updateRoom(Long roomId, RoomDTO roomDTO);
 
     void deleteRoom(Long roomId);
 

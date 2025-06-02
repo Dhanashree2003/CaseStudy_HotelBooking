@@ -16,8 +16,9 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.User;
 import com.hexaware.cozyHeaven.hotelBooking.service.IAdminService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/admin")
 public class AdminRestController {
@@ -25,23 +26,18 @@ public class AdminRestController {
     @Autowired
     private IAdminService adminService;
 
-    // --- User Management ---
-    
-    @PostMapping("/add")
-    public User addUser (@RequestBody User user) {
-        return adminService.addUser (user);
-    }
-    
-//    @PostMapping("/user")
-//    public UserDTO addUser(@Valid @RequestBody UserDTO userDto) {
-//        return adminService.addUser(userDto);
-//    }
-
+    /* User Management
+     * performs user based operations
+     * to manage user
+     */
+       
+    //delete user
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Long id) {
         adminService.deleteUser(id);
     }
 
+    //
     @GetMapping("/users")
     public List<UserDTO> getAllUsers() {
         return adminService.getAllUsers();
@@ -62,10 +58,11 @@ public class AdminRestController {
         return adminService.getOwnerById(id);
     }
 
-    // --- Hotel Management ---
+    // Hotel Management 
 
     @PostMapping("/hotels")
     public HotelDTO addHotel(@RequestBody HotelDTO hotelDto) {
+    	log.info("Hotel added successfully");
         return adminService.addHotel(hotelDto);
     }
 
@@ -78,7 +75,7 @@ public class AdminRestController {
     public List<HotelDTO> getAllHotels() {
         return adminService.getAllHotels();
     }
-
+    
     @GetMapping("/hotels/{id}")
     public HotelDTO getHotelById(@PathVariable Long id) {
         return adminService.getHotelById(id);

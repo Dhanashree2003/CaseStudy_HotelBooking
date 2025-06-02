@@ -19,6 +19,9 @@ import com.hexaware.cozyHeaven.hotelBooking.repository.HotelRepository;
 import com.hexaware.cozyHeaven.hotelBooking.repository.RoomRepository;
 import com.hexaware.cozyHeaven.hotelBooking.util.MapperUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class GuestServiceImpl implements IGuestService {
 
@@ -31,24 +34,25 @@ public class GuestServiceImpl implements IGuestService {
     @Autowired
     private BookingRepository bookingRepo;
 
-    // 1. Search hotels by location
+    // Search hotels by location
     @Override
     public List<HotelDTO> searchHotels(String location) {
         List<Hotel> hotels = hotelRepo.findByLocation(location);
         if (hotels.isEmpty()) {
+        	log.info("No hotels found at location: {}", location);
             return new ArrayList<>();
         }
         return MapperUtil.toHotelDTOList(hotels);
     }
 
-    // 2. Find available rooms
-    @Override
-    public List<RoomDTO> findAvailableRooms(Long hotelId, LocalDate checkIn, LocalDate checkOut) {
-        List<Room> rooms = roomRepo.findAvailableRoomsByHotelIdAndDate(hotelId, checkIn, checkOut);
-        return MapperUtil.toRoomDTOList(rooms);
-    }
+//    // Find available rooms
+//    @Override
+//    public List<RoomDTO> findAvailableRooms(Long hotelId, LocalDate checkIn, LocalDate checkOut) {
+//        List<Room> rooms = roomRepo.findAvailableRoomsByHotelIdAndDate(hotelId, checkIn, checkOut);
+//        return MapperUtil.toRoomDTOList(rooms);
+//    }
 
-    // 3. Calculate total fare
+    //  Calculate total fare
     @Override
     public double calculateTotalFare(RoomDTO room, int numAdults, int numChildren, List<Integer> childrenAges) {
         int totalPeople = numAdults + numChildren;
@@ -66,15 +70,16 @@ public class GuestServiceImpl implements IGuestService {
         return totalFare;
     }
 
-    // 4. Book room
+    // Book room
     @Override
     public BookingDTO bookRoom(BookingDTO bookingDTO) {
         Booking booking = MapperUtil.toBookingEntity(bookingDTO);
         bookingRepo.save(booking);
+        log.info("Room booked successfully with ID: {}", booking.getBookingID());
         return bookingDTO;
     }
 
-    // 5. View booking history
+    // View booking history
     @Override
     public List<BookingDTO> viewBookingHistory(Long userId) {
         List<Booking> bookings = bookingRepo.findBookingsByUserId(userId); 
@@ -82,7 +87,7 @@ public class GuestServiceImpl implements IGuestService {
     }
 
 
-    // 6. Cancel booking
+    // Cancel booking
     @Override
     public BookingDTO cancelBooking(Long bookingId) {
         Booking booking = bookingRepo.findById(bookingId).orElse(null);

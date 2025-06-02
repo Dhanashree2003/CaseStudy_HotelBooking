@@ -35,5 +35,5 @@ public class Review {
  
     private LocalDate reviewDate;
 
-    // Getters and Setters
+   
 }

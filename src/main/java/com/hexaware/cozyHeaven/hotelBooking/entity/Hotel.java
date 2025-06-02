@@ -27,6 +27,7 @@ public class Hotel {
     @NotBlank
     private String location;
 
+   
     private String amenities;
 
     @ManyToOne

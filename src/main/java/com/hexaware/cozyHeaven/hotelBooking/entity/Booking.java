@@ -46,5 +46,5 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
-    // Getters and Setters
+    
 }

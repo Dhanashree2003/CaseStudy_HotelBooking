@@ -8,6 +8,6 @@ public interface IUserService {
    // User addUser (User user);
     User updateUser (User user);
     User getByUserId(Long userId);
-    String deleteByUserId(Long userId);
-    List<User> getAllUsers();
+//    String deleteByUserId(Long userId);
+//    List<User> getAllUsers();
 }
