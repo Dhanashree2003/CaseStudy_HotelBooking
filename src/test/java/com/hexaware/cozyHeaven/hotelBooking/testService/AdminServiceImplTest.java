@@ -97,7 +97,7 @@ class AdminServiceImplTest {
         when(userRepo.findById(1L)).thenReturn(Optional.of(testUser));
         when(hotelRepo.save(any(Hotel.class))).thenReturn(hotel);
 
-        HotelDTO savedHotel = adminService.addHotel(dto);
+        Hotel savedHotel = adminService.addHotel(dto);
         assertEquals("The Grand", savedHotel.getHotelName());
     }
 

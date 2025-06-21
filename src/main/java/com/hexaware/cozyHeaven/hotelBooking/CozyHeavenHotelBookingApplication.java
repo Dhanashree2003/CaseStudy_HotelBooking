@@ -1,5 +1,4 @@
 package com.hexaware.cozyHeaven.hotelBooking;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

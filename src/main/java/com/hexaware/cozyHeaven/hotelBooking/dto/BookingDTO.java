@@ -13,6 +13,7 @@ public class BookingDTO {
 	
 	private Long bookingID;
     private Long userID;
+    private Long hotelID;
     private Long roomID;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;

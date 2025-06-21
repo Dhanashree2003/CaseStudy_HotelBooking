@@ -11,8 +11,11 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.User;
 public interface UserInfoRepository extends JpaRepository<User, Long> {
  
 
-   @Query("SELECT u FROM User u WHERE u.fullName = :username")
-   User findUserByFullName(@Param("username") String username);
+//   @Query("SELECT u FROM User u WHERE u.fullName = :username")
+//   User findUserByFullName(@Param("username") String username);
+
+   @Query("SELECT u FROM User u WHERE u.email = :email")
+   User findUserByEmail(@Param("email") String email);
 
 
 

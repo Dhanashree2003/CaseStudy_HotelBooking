@@ -1,5 +1,8 @@
 package com.hexaware.cozyHeaven.hotelBooking.util;
 
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +18,10 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.Payment;
 import com.hexaware.cozyHeaven.hotelBooking.entity.Review;
 import com.hexaware.cozyHeaven.hotelBooking.entity.Room;
 import com.hexaware.cozyHeaven.hotelBooking.entity.User;
-import com.hexaware.cozyHeaven.hotelBooking.repository.HotelRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MapperUtil {
 
     public static HotelDTO toHotelDTO(Hotel hotel) {
@@ -25,6 +30,7 @@ public class MapperUtil {
         dto.setHotelName(hotel.getHotelName());
         dto.setLocation(hotel.getLocation());
         dto.setAmenities(hotel.getAmenities());
+        dto.setImgUrl(hotel.getImgUrl());
         dto.setOwnerID(hotel.getOwner().getUserID());
         return dto;
     }
@@ -32,13 +38,24 @@ public class MapperUtil {
     public static RoomDTO toRoomDTO(Room room) {
         RoomDTO dto = new RoomDTO();
         dto.setRoomID(room.getRoomID());
+        log.info("mapper "+room.getRoomID());
         dto.setHotelID(room.getHotel().getHotelID());
+        log.info("mapper "+room.getHotel().getHotelID());
+        dto.setRoomName(room.getRoomName());;
         dto.setRoomSize(room.getRoomSize());
+        log.info("mapper "+room.getRoomSize());
         dto.setBedType(room.getBedType());
+        log.info("mapper "+room.getBedType());
         dto.setMaxOccupancy(room.getMaxOccupancy());
+        log.info("mapper "+room.getMaxOccupancy());
         dto.setBaseFare(room.getBaseFare());
+        log.info("mapper "+room.getBaseFare());
         dto.setAc(room.isAc());
+        log.info("mapper "+room.isAc());
         dto.setRoomStatus(room.getRoomStatus());
+        log.info("mapper "+room.getRoomStatus());
+        
+        log.info("mapper "+room);
         return dto;
     }
 
@@ -47,6 +64,7 @@ public class MapperUtil {
         dto.setBookingID(booking.getBookingID());
         dto.setUserID(booking.getUser().getUserID());
         dto.setRoomID(booking.getRoom().getRoomID());
+        dto.setHotelID(booking.getHotel().getHotelID());
         dto.setCheckInDate(booking.getCheckInDate());
         dto.setCheckOutDate(booking.getCheckOutDate());
         dto.setNoOfAdults(booking.getNoOfAdults());
@@ -65,6 +83,9 @@ public class MapperUtil {
         Room room = new Room();
         room.setRoomID(dto.getRoomID());
         booking.setRoom(room);
+        Hotel hotel = new Hotel();
+        hotel.setHotelID(dto.getHotelID());
+        booking.setHotel(hotel);
         booking.setCheckInDate(dto.getCheckInDate());
         booking.setCheckOutDate(dto.getCheckOutDate());
         booking.setNoOfAdults(dto.getNoOfAdults());
@@ -76,19 +97,26 @@ public class MapperUtil {
     
     
     public static Room toRoomEntity(RoomDTO dto) {
+    	log.info("mapper1 "+ dto);
         Room room = new Room();
         room.setRoomID(dto.getRoomID());
+        room.setRoomName(dto.getRoomName());
+        log.info("mapper1 "+ dto);
         room.setRoomSize(dto.getRoomSize());
+        log.info("mapper1 "+ dto.getRoomSize());
         room.setBedType(dto.getBedType());
+        log.info("mapper1 "+ dto.getBedType());
         room.setMaxOccupancy(dto.getMaxOccupancy());
+        log.info("mapper1 "+ dto.getMaxOccupancy());
         room.setBaseFare(dto.getBaseFare());
+        log.info("mapper1 "+ dto.getBaseFare());
         room.setAc(dto.isAc());
+        log.info("mapper1 "+ dto.isAc());
         room.setRoomStatus(dto.getRoomStatus());
+        log.info("mapper1 "+ dto.getRoomStatus());
+        
 
-        Hotel hotel = new Hotel();
-        hotel.setHotelID(dto.getHotelID());
-        room.setHotel(hotel);
-
+        
         return room;
     }
 
@@ -150,6 +178,9 @@ public class MapperUtil {
         payment.setAmount(dto.getAmount());
         payment.setPaymentMethod(dto.getPaymentMethod());
         payment.setPaymentStatus(dto.getPaymentStatus());
+        payment.setTransactionID(dto.getTransactionID());
+        payment.setMobileNumber(dto.getMobileNumber());
+        payment.setBankName(dto.getBankName());
         return payment;
     }
 

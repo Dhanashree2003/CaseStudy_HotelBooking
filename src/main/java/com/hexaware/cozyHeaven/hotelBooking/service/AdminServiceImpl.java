@@ -12,6 +12,7 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.Hotel;
 import com.hexaware.cozyHeaven.hotelBooking.entity.User;
 import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Role;
 import com.hexaware.cozyHeaven.hotelBooking.exception.ResourceNotFoundException;
+import com.hexaware.cozyHeaven.hotelBooking.repository.BookingRepository;
 import com.hexaware.cozyHeaven.hotelBooking.repository.HotelRepository;
 import com.hexaware.cozyHeaven.hotelBooking.repository.UserRepository;
 import com.hexaware.cozyHeaven.hotelBooking.util.MapperUtil;
@@ -27,6 +28,9 @@ public class AdminServiceImpl implements IAdminService {
 
     @Autowired
     private HotelRepository hotelRepo;
+    
+    @Autowired
+    private BookingRepository bookingRepo;
 
 
     @Override
@@ -35,6 +39,7 @@ public class AdminServiceImpl implements IAdminService {
         	log.warn("User not found with ID: {}", userId);
             throw new ResourceNotFoundException("User not found with ID: " + userId);
         }
+        bookingRepo.deleteByUserId(userId);
         userRepo.deleteById(userId);
     }
     @Override
@@ -75,21 +80,72 @@ public class AdminServiceImpl implements IAdminService {
         return MapperUtil.toUserDTO(user);
     }
 
+    
+//    public HotelDTO addHotel(HotelDTO dto) {
+//        Hotel hotel = new Hotel();
+//        hotel.setHotelName(dto.getHotelName());
+//        hotel.setLocation(dto.getLocation());
+//        hotel.setAmenities(dto.getAmenities());
+//        hotel.setOwnerID(dto.getOwnerID());
+//
+//        Hotel saved = hotelRepo.save(hotel);
+//
+//        dto.setHotelID(saved.getHotelID());
+//        return dto;
+//    }
+    
+//    public HotelDTO addHotel(HotelDTO dto) {
+//        Hotel hotel = new Hotel();
+//        hotel.setHotelName(dto.getHotelName());
+//        hotel.setLocation(dto.getLocation());
+//        hotel.setAmenities(dto.getAmenities());
+//
+//        User owner = userRepo.findById(dto.getOwnerID())
+//            .orElseThrow(() -> new IllegalArgumentException("Invalid owner ID"));
+//
+//        hotel.setOwner(owner); // use setOwner(User), not setOwnerID
+//
+//        Hotel saved = hotelRepo.save(hotel);
+//
+//        dto.setHotelID(saved.getHotelID());
+//        return dto;
+//    }
     @Override
-    public HotelDTO addHotel(HotelDTO dto) {
+    public Hotel addHotel(HotelDTO dto) {
         Hotel hotel = new Hotel();
         hotel.setHotelName(dto.getHotelName());
         hotel.setLocation(dto.getLocation());
         hotel.setAmenities(dto.getAmenities());
+        hotel.setImgUrl(dto.getImgUrl());
 
         User owner = userRepo.findById(dto.getOwnerID())
-                .orElseThrow(() -> new ResourceNotFoundException("Owner not found with ID: " + dto.getOwnerID()));
+            .orElseThrow(() -> new RuntimeException("Owner not found with ID: " + dto.getOwnerID()));
+
         hotel.setOwner(owner);
 
-        Hotel saved = hotelRepo.save(hotel);
-        return MapperUtil.toHotelDTO(saved);
+        return hotelRepo.save(hotel);
+    }
+    
+    @Override
+    public Hotel updateHotel(HotelDTO dto) {
+        Hotel hotel = hotelRepo.findById(dto.getHotelID())
+            .orElseThrow(() -> new RuntimeException("Hotel not found with ID: " + dto.getHotelID()));
+
+        hotel.setHotelName(dto.getHotelName());
+        hotel.setLocation(dto.getLocation());
+        hotel.setAmenities(dto.getAmenities());
+        hotel.setImgUrl(dto.getImgUrl());
+
+        if (dto.getOwnerID() != null) {
+            User owner = userRepo.findById(dto.getOwnerID())
+                .orElseThrow(() -> new RuntimeException("Owner not found with ID: " + dto.getOwnerID()));
+            hotel.setOwner(owner);
+        }
+
+        return hotelRepo.save(hotel);
     }
 
+    
     @Override
     public void deleteHotel(Long hotelId) {
         if (!hotelRepo.existsById(hotelId)) {

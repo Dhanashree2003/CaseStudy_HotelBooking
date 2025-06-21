@@ -1,7 +1,10 @@
 package com.hexaware.cozyHeaven.hotelBooking.service;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,9 @@ import com.hexaware.cozyHeaven.hotelBooking.repository.RoomRepository;
 import com.hexaware.cozyHeaven.hotelBooking.repository.UserRepository;
 import com.hexaware.cozyHeaven.hotelBooking.util.MapperUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class OwnerServiceImpl implements IOwnerService {
 
@@ -63,30 +69,71 @@ public class OwnerServiceImpl implements IOwnerService {
     }
 
     @Override
-    public List<RoomDTO> getAllRooms(Long ownerId) {
-        List<Room> rooms = roomRepo.findByHotel_Owner_UserID(ownerId);
+    public List<RoomDTO> getAllRooms(Long hotelID) {
+        List<Room> rooms = roomRepo.findByHotel_HotelID(hotelID);
         return MapperUtil.toRoomDTOList(rooms);
     }
 
-    @Override
-    public RoomDTO addRoom(RoomDTO roomDTO) {
-        Room room = MapperUtil.toRoomEntity(roomDTO);
-        Room savedRoom = roomRepo.save(room);
-        return MapperUtil.toRoomDTO(savedRoom);
-    }
-
+    
+    //add rooms to hotel by id
+    //old
+    
 //    @Override
-//    public RoomDTO updateRoom(Long roomId, RoomDTO roomDTO) {
-//        Room existingRoom = roomRepo.findById(roomId)
-//                .orElseThrow(() -> new RuntimeException("Room not found with id: " + roomId));
+//    public RoomDTO addRoom(RoomDTO roomDTO) {
+//    	log.info("roomDTO");
+//    	 log.info("roomDTO: {}", roomDTO);
+//    	log.info("roomDTO");
+//        if (roomDTO.getHotelID() == null) {
+//            throw new IllegalArgumentException("HotelID cannot be null");
+//            
+//        }
 //
-//        Room updatedRoom = MapperUtil.toRoomEntity(roomDTO);
-//        updatedRoom.setRoomID(roomId);
-//        updatedRoom.setHotel(existingRoom.getHotel());
+//        Room room = MapperUtil.toRoomEntity(roomDTO);
 //
-//        Room savedRoom = roomRepo.save(updatedRoom);
+//        Hotel hotel = hotelRepo.findById(roomDTO.getHotelID())
+//            .orElseThrow(() -> new RuntimeException("Hotel not found"));
+//
+//        room.setHotel(hotel);
+//        
+//        Room savedRoom = roomRepo.save(room);
 //        return MapperUtil.toRoomDTO(savedRoom);
 //    }
+
+    @Override
+    public Room saveRoom(Room room) {
+        return roomRepo.save(room);
+    }
+
+
+    
+    @Override
+    public RoomDTO updateRoom(Long roomId, RoomDTO updatedRoomDTO) {
+        Optional<Room> optionalRoom = roomRepo.findById(roomId);
+        if (optionalRoom.isEmpty()) {
+            throw new RuntimeException("Room not found with ID: " + roomId);
+        }
+
+        Room room = optionalRoom.get();
+
+        // Set new values
+        room.setRoomName(updatedRoomDTO.getRoomName());
+        room.setRoomSize(updatedRoomDTO.getRoomSize());
+        room.setBedType(updatedRoomDTO.getBedType());
+        room.setMaxOccupancy(updatedRoomDTO.getMaxOccupancy());
+        room.setBaseFare(updatedRoomDTO.getBaseFare());
+        room.setAc(updatedRoomDTO.isAc());
+        room.setRoomStatus(updatedRoomDTO.getRoomStatus());
+
+        // Optionally update hotel if needed
+        if (updatedRoomDTO.getHotelID() != null) {
+            Hotel hotel = hotelRepo.findById(updatedRoomDTO.getHotelID())
+                    .orElseThrow(() -> new RuntimeException("Hotel not found"));
+            room.setHotel(hotel);
+        }
+
+        Room saved = roomRepo.save(room);
+        return MapperUtil.toRoomDTO(saved);
+    }
 
     @Override
     public void deleteRoom(Long roomId) {
@@ -117,8 +164,8 @@ public class OwnerServiceImpl implements IOwnerService {
     }
 
     @Override
-    public List<ReviewDTO> getReviewsByOwner(Long ownerId) {
-        List<Review> reviews = reviewRepo.findByHotel_Owner_UserID(ownerId);
+    public List<ReviewDTO> getReviewsByHotel(Long hotelId) {
+        List<Review> reviews = reviewRepo.findByHotel_HotelID(hotelId);
         List<ReviewDTO> reviewDTOs = new ArrayList<>();
         for (Review review : reviews) {
             reviewDTOs.add(MapperUtil.toReviewDTO(review));

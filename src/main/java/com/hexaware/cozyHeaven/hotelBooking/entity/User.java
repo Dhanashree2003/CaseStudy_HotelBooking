@@ -3,6 +3,7 @@ package com.hexaware.cozyHeaven.hotelBooking.entity;
 import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Gender;
 import com.hexaware.cozyHeaven.hotelBooking.entity.enums.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -27,9 +30,12 @@ public class User {
 
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @NotBlank
+    @Size(min=6)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&]).*$")
     private String password;
     
     @Enumerated(EnumType.STRING)
@@ -41,6 +47,7 @@ public class User {
     @NotBlank
     private String contactNumber;
 
+    @NotBlank
     private String address;
 
 	

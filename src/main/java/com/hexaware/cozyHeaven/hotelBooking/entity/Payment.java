@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -30,9 +31,10 @@ public class Payment {
     @JoinColumn(name = "BookingID")
     private Booking booking; // Mapping to Booking entity
 
-   
+    @NotNull
     private LocalDate paymentDate;
-
+    
+    @NotNull
     private double amount;
 
     @Enumerated(EnumType.STRING)
@@ -40,5 +42,11 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
+    
+    private String transactionID;    
+    private String mobileNumber;    
+    private String bankName; 
+    
+    
 
 }

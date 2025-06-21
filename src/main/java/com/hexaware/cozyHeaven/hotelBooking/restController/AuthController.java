@@ -1,26 +1,38 @@
 package com.hexaware.cozyHeaven.hotelBooking.restController;
 
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hexaware.cozyHeaven.hotelBooking.dto.AuthRequest;
+import com.hexaware.cozyHeaven.hotelBooking.dto.UserSummaryDTO;
 import com.hexaware.cozyHeaven.hotelBooking.entity.User;
+import com.hexaware.cozyHeaven.hotelBooking.service.IGuestService;
 import com.hexaware.cozyHeaven.hotelBooking.service.JwtService;
 import com.hexaware.cozyHeaven.hotelBooking.service.UserService;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/users")
 public class AuthController {
+	
+	@Autowired
+	private IGuestService guestService;
 	
 
 	@Autowired
@@ -47,7 +59,7 @@ public class AuthController {
 
 		logger.info("alert1");
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authRequest.getFullName(), authRequest.getPassword()));
+				new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 		logger.info("alert2");
 		
 
@@ -57,7 +69,7 @@ public class AuthController {
 
 			// call generate token method from jwtService class
 
-			token = jwtService.generateToken(authRequest.getFullName());
+			token = jwtService.generateToken(authRequest.getEmail());
 
 			logger.info("Token : " + token);
 
@@ -65,7 +77,7 @@ public class AuthController {
 
 			logger.info("invalid");
 
-			throw new UsernameNotFoundException("UserName or Password in Invalid / Invalid Request");
+			throw new UsernameNotFoundException("Email or Password in Invalid / Invalid Request");
 
 		}
 		
@@ -74,6 +86,18 @@ public class AuthController {
 
 	}
 	
+	@GetMapping("/userId")
+	 public ResponseEntity<?> getUserSummary(@RequestParam String fullName) {
+	     Optional<UserSummaryDTO> summaryOpt = service.getUserSummaryByEmail(fullName);
+
+	     if (summaryOpt.isPresent()) {
+	         return ResponseEntity.ok(summaryOpt.get());
+	     } else {
+	         return ResponseEntity.status(404).body("User not found");
+	     }
+	 }
+	
+
 
 
 }

@@ -1,11 +1,11 @@
 package com.hexaware.cozyHeaven.hotelBooking.dto;
 
-import java.util.List;
-
-import com.hexaware.cozyHeaven.hotelBooking.entity.Room;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class HotelDTO {
 	
@@ -13,6 +13,7 @@ public class HotelDTO {
     private String hotelName;
     private String location;
     private String amenities;
+    private String imgUrl;
     private Long ownerID; // refers to User
     //private List<Room> room;
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hexaware.cozyHeaven.hotelBooking.dto.HotelDTO;
 import com.hexaware.cozyHeaven.hotelBooking.dto.UserDTO;
+import com.hexaware.cozyHeaven.hotelBooking.entity.Hotel;
 import com.hexaware.cozyHeaven.hotelBooking.entity.User;
 
 public interface IAdminService {
@@ -19,10 +20,11 @@ public interface IAdminService {
    UserDTO getOwnerById(Long ownerID);
 
     // Hotel
-    HotelDTO addHotel(HotelDTO hotelDto);
+    Hotel addHotel(HotelDTO hotelDto);
     void deleteHotel(Long hotelID);
     List<HotelDTO> getAllHotels();
     HotelDTO getHotelById(Long hotelID);
+	Hotel updateHotel(HotelDTO dto);
 
 
 }

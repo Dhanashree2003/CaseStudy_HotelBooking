@@ -10,4 +10,7 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.Payment;
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 	
 	List<Payment> findByBooking_Room_Hotel_Owner_UserID(Long ownerId);
+	
+	boolean existsByTransactionID(String transactionID);
+    //boolean existsByMobileNumber(String mobileNumber);
 }

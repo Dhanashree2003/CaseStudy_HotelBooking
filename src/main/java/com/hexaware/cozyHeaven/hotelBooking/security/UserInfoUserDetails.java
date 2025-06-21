@@ -17,14 +17,15 @@ import com.hexaware.cozyHeaven.hotelBooking.entity.User;
 public class UserInfoUserDetails implements UserDetails {
 
 
-    private String name;
+    private String email;
     private String password;
     private List<GrantedAuthority> authorities;
 
     public UserInfoUserDetails(User user) {
-        name=user.getFullName();
+        email=user.getEmail();
         password=user.getPassword();
-        authorities = List.of(new SimpleGrantedAuthority("ROLE_"+user.getRole().name()));
+        authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name().toUpperCase()));
+
 //        authorities = List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
 //        authorities= Arrays.stream(user.getRole().name())
 //                .map(SimpleGrantedAuthority::new) // .map(str -> new SimpleGrantedAuthority(str))
@@ -43,7 +44,7 @@ public class UserInfoUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

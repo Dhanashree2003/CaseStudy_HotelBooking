@@ -8,6 +8,7 @@ import com.hexaware.cozyHeaven.hotelBooking.dto.PaymentDTO;
 import com.hexaware.cozyHeaven.hotelBooking.dto.ReviewDTO;
 import com.hexaware.cozyHeaven.hotelBooking.dto.RoomDTO;
 import com.hexaware.cozyHeaven.hotelBooking.dto.UserDTO;
+import com.hexaware.cozyHeaven.hotelBooking.entity.Room;
 
 public interface IOwnerService {
 	
@@ -18,9 +19,8 @@ public interface IOwnerService {
     BookingDTO updateBookingStatus(Long bookingId, BookingDTO bookingDTO);
 
     // Room management
-    List<RoomDTO> getAllRooms(Long ownerId);
+    List<RoomDTO> getAllRooms(Long hotelID);
 
-    RoomDTO addRoom(RoomDTO roomDTO);
 
     //RoomDTO updateRoom(Long roomId, RoomDTO roomDTO);
 
@@ -33,9 +33,13 @@ public interface IOwnerService {
     List<HotelDTO> getHotelsByOwner(Long ownerId);
 
     // Review viewing
-    List<ReviewDTO> getReviewsByOwner(Long ownerId);
+    List<ReviewDTO> getReviewsByHotel(Long hotelId);
 
     // User listing (optional)
     List<UserDTO> getAllUsers();
+
+	Room saveRoom(Room room);
+
+	RoomDTO updateRoom(Long roomId, RoomDTO updatedRoomDTO);
 
 }

@@ -16,5 +16,8 @@ public class PaymentDTO {
     private double amount;
     private PaymentMethod paymentMethod;
     private PaymentStatus paymentStatus;
+    private String transactionID;
+    private String mobileNumber;
+    private String bankName;
 	
 }

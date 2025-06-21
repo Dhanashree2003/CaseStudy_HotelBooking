@@ -1,5 +1,5 @@
-package com.hexaware.cozyHeaven.hotelBooking.exception;
-
+//package com.hexaware.cozyHeaven.hotelBooking.exception;
+//
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,5 +18,5 @@ package com.hexaware.cozyHeaven.hotelBooking.exception;
 //        return new ResponseEntity<>("An unexpected error occurred: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 //}
-
+//
 
